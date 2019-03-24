@@ -1,46 +1,42 @@
 int redPin=11;  //set red LED pin to 11
-int greenPin=2; //set green LED pin to 2
+int greenPin=10; //set green LED pin to 10
 int bluePin=6; //set blue LED pin to 6
-int brightness=100; //Set brightness to 100
-int i=0;
+int brightness=100; //set initial brightness to 100
+int delayTime=50; //set delay time to 50
 
 void setup() {
-  // put your setup code here, to run once:
 
-Serial.begin(9600); //Turn on Serial port
-pinMode(redPin, OUTPUT); //Set redPin to be an output
-pinMode(greenPin, OUTPUT); //Set greenPin to be an output
-pinMode(bluePin, OUTPUT); //set bluePin to be an output
-
+  Serial.begin(9600); //Turn on Serial port
+ 
+  //set pins as an output
+  pinMode(redPin, OUTPUT); 
+  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT); 
+  
+  digitalWrite(redPin, HIGH);
+  digitalWrite(greenPin, HIGH);
+  digitalWrite(bluePin, HIGH);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly: 
-  
-    if(i==0){
-     analogWrite(redPin, 0); //turn off red pin
-     analogWrite(greenPin, 0); //turn off green pin
-     analogWrite(bluePin, brightness); //write 100 (brightness) to blue pin
-     delay(1250);
-    }
+ 
 
-  if(i==1){
-     analogWrite(redPin, 0); //turn off red pin
-     analogWrite(greenPin, brightness); //turn off green pin
-     analogWrite(bluePin, 0); //write 100 (brightness) to blue pin
-     delay(1250);
-    }
-      if(i==2){
-     analogWrite(redPin, brightness); //turn off red pin
-     analogWrite(greenPin, 0); //turn off green pin
-     analogWrite(bluePin, 0); //write 100 (brightness) to blue pin
-     delay(1250);
-    }
-    
-    if(i>2){
-      i=0;
-    }
-    i++;
+  for( int i = 0 ; i < 255 ; i += 1 ){
+    analogWrite( redPin, 255 - i );
+    analogWrite( greenPin, i);
+    delay( delayTime );
+  }
  
+
+  for( int i = 0 ; i < 255 ; i += 1 ){
+    analogWrite( greenPin, 255 - i );
+    analogWrite( bluePin, i );
+    delay( delayTime );
+  }
  
+  for( int i = 0 ; i < 255 ; i += 1 ){
+    analogWrite( bluePin, 255 - i );
+    analogWrite( redPin, i);
+    delay( delayTime );
+  }
 }
